@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_patient_tag_tree" model="ir.ui.view">
+        <field name="name">patient.tag.tree</field>
+        <field name="model">patient.tag</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="color" widget="color"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_patient_tag_form" model="ir.ui.view">
+        <field name="name">patient.tag.form</field>
+        <field name="model">patient.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" default_focus="1"/>
+                        </group>
+                        <group>
+                            <field name="color" widget="color"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_tags_home" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.tag</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Create Your First Tags
+            </p>
+        </field>
+    </record>
+    <menuitem id="tags_home"
+          name="Tags"
+          action="action_tags_home"
+          parent="configuration_root"
+          sequence="0"/>
+</odoo>

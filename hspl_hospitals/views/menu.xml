@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="hosital_root"
+              name="Hospital"
+              web_icon="hspl_hospitals,static/description/logo.png"
+              sequence="0"/>
+
+    <menuitem id="patient_details_root"
+              name="Patients"
+              parent="hosital_root"
+              sequence="0"/>
+
+    <menuitem id="configuration_root"
+              name="Configuration"
+              parent="hosital_root"
+              sequence="1"/>
+
+</odoo>

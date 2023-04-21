@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_hospital_female_patients" model="ir.actions.act_window">
+        <field name="name">Female Patients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hspl.hospital.data</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_gender':'F'}</field>
+        <field name="domain">[('gender','=','F')]</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Create Your First Female Patients
+            </p>
+        </field>
+    </record>
+    <menuitem id="Female_Patient_root"
+          name="Female_Patient"
+          action="action_hospital_female_patients"
+          parent="patient_details_root"
+          sequence="2"/>
+</odoo>

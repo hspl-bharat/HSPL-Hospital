@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hspl_hospital_patient_tree" model="ir.ui.view">
+        <field name="name">hspl.hospital.data.tree</field>
+        <field name="model">hspl.hospital.data</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="date"/>
+                <field name="name"/>
+                <field name="date_of_birth"/>
+                <field name="ref"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_hspl_hospital_patient_form" model="ir.ui.view">
+        <field name="name">hspl.hospital.data.form</field>
+        <field name="model">hspl.hospital.data</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="date"/>
+                            <field name="name" default_focus="1"/>
+                            <field name="date_of_birth"/>
+                        </group>
+                        <group>
+                            <field name="ref"/>
+                            <field name="age"/>
+                            <field name="gender"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+<!--                </sheet>-->
+<!--                <sheet>-->
+<!--                    <notebook>-->
+<!--                        <page name="prescription" string="Prescription">-->
+<!--                            <field name="prescription" placeholder="Enter your prescription here..." options="{'collaborative': true, 'resizable':true}"/>-->
+<!--                        </page>-->
+<!--                        <page name="test" string="Test and Result">-->
+
+<!--                        </page>-->
+<!--                        <page name="bill" string="Bill">-->
+
+<!--                        </page>-->
+<!--                    </notebook>-->
+                </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_hspl_hospital_patient_search" model="ir.ui.view">
+        <field name="name">hspl.hospital.data.search</field>
+        <field name="model">hspl.hospital.data</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="date" filter_domain="['|','|','|',('name', 'ilike', self),('ref', 'ilike', self), ('age', 'ilike', self), ('gender', 'ilike', self)]"/>
+                <field name="name"/>
+                <field name="ref"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <filter name="filter_male" string="Male" domain="[('gender','=','M')]" />
+                <filter name="filter_female" string="Female" domain="[('gender','=','F')]" />
+                <separator/>
+<!--                <filter name="filter_adults" string="Adult" domain="[('age','>=','18')]" />-->
+<!--                <filter name="filter_kids" string="Kids" domain="[('age','&lt;=','17')]" />-->
+                <separator/>
+                <filter name="filter_active" string="Active" domain="[('active','=','False')]" />
+                <filter name="filter_inactive" string="Inactive" domain="[('active','=','True')]" />
+                <group expand="0" string="Group By">
+                    <filter name="group_by_gender" string="Gender" context="{'group_by':'gender'}"/>
+                    <filter name="group_by_ref" string="Reference" context="{'group_by':'ref'}"/>
+                    <filter name="group_by_active" string="Active" context="{'group_by':'active'}"/>
+                </group>
+                <searchpanel>
+                    <field name="gender" enable_countes="1" icon="fa-users" select="multi"/>
+<!--                    <field name="ref" enable_countes="1" icon="fa-star" select="multi"/>-->
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hospital_patients" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hspl.hospital.data</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{'search_default_filter_adults' : 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Create Your First Patients
+            </p>
+        </field>
+    </record>
+    <menuitem id="Patient_root"
+          name="Patient Details"
+          action="action_hospital_patients"
+          parent="patient_details_root"
+          sequence="0"/>
+</odoo>
