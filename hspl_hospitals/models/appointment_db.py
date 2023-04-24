@@ -41,8 +41,8 @@ class AppointmentDb(models.Model):
             rec.status = 'done'
 
     def action_cancel(self):
-        for rec in self:
-            rec.status = 'cancelled'
+        action = self.env.ref('hspl_hospitals.action_cancel_appointment').read()[0]
+        return action
 
     def action_draft(self):
         for rec in self:

@@ -87,7 +87,7 @@
                 </sheet>
                 <notebook>
                         <page name="prescription" string="Prescription">
-                            <field name="prescription" placeholder="Enter your prescription here..." options="{'collaborative': true, 'resizable':true}"/>
+                            <field name="prescription" placeholder="Enter your prescription here..." options="{'collaborative': true, 'resizable':true, 'code_view':true}"/>
                         </page>
                         <page name="pharmacy" string="Pharmacy">
                             <field name="pharmacy_line_ids">
@@ -144,8 +144,8 @@
         </field>
     </record>
     <menuitem id="appointment_root"
-          name="Appointment"
+          name="Appointments"
           action="action_hospital_appointments"
-          parent="hosital_root"
-          sequence="1"/>
+          parent="appointment_master"
+          sequence="0"/>
 </odoo>

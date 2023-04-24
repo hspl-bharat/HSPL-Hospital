@@ -12,6 +12,9 @@ Manage the staff for giving better services to patients with the help of our sof
     'depends': ['mail','product'],
     'data': [
         'security/ir.model.access.csv',
+        'data/patient_tag_data.xml',
+        'data/patient.tag.csv',
+        'wizard/cancel_appointment_view.xml',
         'views/menu.xml',
         'views/patient.xml',
         'views/male_patient.xml',
