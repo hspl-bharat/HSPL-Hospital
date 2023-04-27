@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="draft_view_hspl_hospital_appointment_tree" model="ir.ui.view">
+        <field name="name">hspl.hospital.appointment.draft.tree</field>
+        <field name="model">hspl.hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree multi_edit="1" decoration-warning="status == 'in_consultation'" decoration-success="status == 'done'"
+                  decoration-danger="status == 'cancelled'"
+                  decoration-info="status not in ('in_consultation', 'done', 'cancelled')">
+                <field name="booking_date" optional="show"/>
+                <field name="patient_name_tree_view"/>
+                <field name="gender"/>
+                <field name="appointment_date"/>
+                <field name="doctor_id" widget="many2one_avatar_user"/>
+                <field name="ref" optional="show"/>
+                <field name="activity_ids" widget="list_activity"/>
+                <field name="status" widget="badge" decoration-warning="status == 'in_consultation'"
+                       decoration-success="status == 'done'" decoration-danger="status == 'cancelled'"
+                       decoration-info="status not in ('in_consultation', 'done', 'cancelled')"/>
+<!--                <field name="domain">[('status', '=', 'draft')]</field>-->
+<!--                <field name="context">{'default_type': 'draft'}</field>-->
+<!--                <filter name="filter_draft" string="Draft" domain="[('status','=','draft')]" />-->
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_draft_hospital_appointments" model="ir.actions.act_window">
+        <field name="name">Draft Appointment</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hspl.hospital.appointment</field>
+        <field name="view_mode">tree,form,activity</field>
+        <field name="domain">[('status', '=', 'draft')]</field>
+<!--        <field name="context">{'default_type': 'draft'}</field>-->
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Create Your First Appointment
+            </p>
+        </field>
+    </record>
+
+</odoo>

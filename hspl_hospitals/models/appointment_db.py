@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 class AppointmentDb(models.Model):
     _name = 'hspl.hospital.appointment'
@@ -23,6 +23,7 @@ class AppointmentDb(models.Model):
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines', 'appointment_id', string='Pharmacy lines')
     image = fields.Image(string='Image')
     cancel_reason = fields.Text(string='Reason')
+    pending_appointment = fields.Integer('Pending Appointment', compute='_compute_pending_appointment')
 
     def action_test(self):
         print("clicked on object button")
@@ -49,6 +50,19 @@ class AppointmentDb(models.Model):
     def action_draft(self):
         for rec in self:
             rec.status = 'draft'
+    @api.depends('status')
+    def _compute_pending_appointment(self):
+        total_len = self.env['hspl.hospital.appointment'].search_count([('status', '=', 'draft')])
+        self.pending_appointment = total_len
+
+    def action_pending_appointment_view(self):
+        return {
+            'name': 'draft_view',
+            'view_mode': 'tree,form',
+            'domain': [('status', 'in', ['draft'])],
+            'res_model': 'hspl.hospital.appointment',
+            'type': 'ir.actions.act_window',
+        }
 
 
 class AppointmentPharmacylines(models.Model):
