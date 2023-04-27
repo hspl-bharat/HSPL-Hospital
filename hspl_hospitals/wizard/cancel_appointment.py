@@ -15,6 +15,9 @@ class CancelAppointmentWizard(models.TransientModel):
     reason = fields.Text(string="Reason")
     date_cancel = fields.Date(string='Cancellation Date')
     state = fields.Selection(related="appointment_id.status")
+
+
+
     def action_cancel(self):
-        for rec in self:
-            rec.state = 'cancelled'
+        self.appointment_id.cancel_reason = self.reason if self.reason else ''
+        self.appointment_id.status = 'cancelled'

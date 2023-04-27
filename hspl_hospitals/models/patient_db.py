@@ -1,11 +1,12 @@
 from odoo import api, fields, models
 from datetime import date
 
-class TestingDb(models.Model):
+class HosptialPatient(models.Model):
     _name ='hspl.hospital.data'
     _description = 'testing'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+    patient_id = fields.Char('ID')
     date = fields.Datetime(string='Date', required=True, default=fields.Datetime.now, tracking=True)
     name = fields.Char('Name', required=True, tracking=True)
     date_of_birth = fields.Date('Date Of Birth', required=True, tracking=True)
@@ -16,9 +17,19 @@ class TestingDb(models.Model):
     tag_ids = fields.Many2many('patient.tag', string='Tags')
     # prescription = fields.Html('Prescription')
 
+    @api.model
+    def create(self, values):
+        values['patient_id'] = self.env['ir.sequence'].next_by_code('hospital.patient')
+        return super(HosptialPatient, self).create(values)
+
+    def write(self, values):
+        if not self.patient_id and not values.get('patient_id'):
+            values['patient_id'] = self.env['ir.sequence'].next_by_code('hospital.patient')
+        return super(HosptialPatient, self).write(values)
+
+
     @api.depends('date_of_birth')
     def _compute_age(self):
-        print(self)
         for rec in self:
             today = date.today()
             if rec.date_of_birth:
@@ -26,3 +37,10 @@ class TestingDb(models.Model):
             else:
                 rec.age = 0
 
+    def name_get(self):
+        patient_lst = []
+        for rec in self:
+            name = rec.name + '  ' + '[' + rec.ref + ']'
+            patient_lst.append((rec.id, name))
+        return patient_lst
+    # return [(rec.id, "%s:%s" % (rec.name, rec.ref )) for rec in self]

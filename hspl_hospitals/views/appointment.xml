@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <tree multi_edit="1" decoration-warning="status == 'in_consultation'" decoration-success="status == 'done'" decoration-danger="status == 'cancelled'" decoration-info="status not in ('in_consultation', 'done', 'cancelled')">
                 <field name="booking_date" optional="show"/>
-                <field name="patient_id"/>
+                <field name="patient_name_tree_view"/>
                 <field name="gender"/>
                 <field name="appointment_date"/>
                 <field name="doctor_id" widget="many2one_avatar_user"/>
@@ -23,12 +23,12 @@
         <field name="model">hspl.hospital.appointment</field>
         <field name="arch" type="xml">
             <activity string="Appointment">
-                    <field name="patient_id"/>
+                    <field name="patient_name"/>
                     <field name="ref"/>
                     <templates>
                         <div t-name="activity-box">
-                            <img t-att-src="activity_image('hspl.hospital.data', 'image', record.patient_id.raw_value)"
-                                 t-att-title="record.patient_id.value" t-att-alt="record.patient_id.value"/>
+                            <img t-att-src="activity_image('hspl.hospital.data', 'image', record.patient_name.raw_value)"
+                                 t-att-title="record.patient_name.value" t-att-alt="record.patient_name.value"/>
                             <div>
                                 <field name="ref" display="full"/>
                             </div>
@@ -67,13 +67,14 @@
                         <field name="image" widget="image" class="oe_avatar"/>
                         <group>
                             <field name="booking_date"/>
-                            <field name="patient_id" default_focus="1"/>
+                            <field name="patient_name" default_focus="1"/>
                             <field name="gender"/>
                         </group>
                         <group>
                             <field name="ref"/>
                             <field name="appointment_date"/>
                             <field name="doctor_id" widget="many2one_avatar"/>
+                            <field name="cancel_reason"/>
                         </group>
                     </group>
                     <group>
@@ -125,7 +126,7 @@
         <field name="arch" type="xml">
             <search>
 <!--                <field name="booking_date"/>-->
-<!--                <field name="patient_id"/>-->
+<!--                <field name="patient_name"/>-->
 <!--                <field name="appointment_date"/>-->
             </search>
         </field>

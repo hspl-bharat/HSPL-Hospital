@@ -1,1 +1,1 @@
-from . import cancel_appoointment
+from . import cancel_appointment

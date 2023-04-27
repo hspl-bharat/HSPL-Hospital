@@ -4,13 +4,14 @@ class AppointmentDb(models.Model):
     _name = 'hspl.hospital.appointment'
     _description = 'appointments'
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _rec_name = 'patient_id'
+    _rec_name = 'patient_name'
 
     booking_date = fields.Date(string='Booking Date', required=True, default=lambda s: fields.Date.context_today(s), tracking=True)
-    patient_id = fields.Many2one('hspl.hospital.data', string="Patient", required=True, tracking=True)
-    gender = fields.Selection(related='patient_id.gender')
+    patient_name_tree_view = fields.Char(related='patient_name.name', string='Patient')
+    patient_name = fields.Many2one('hspl.hospital.data', string="Patient", required=True, tracking=True)
+    gender = fields.Selection(related='patient_name.gender')
     appointment_date = fields.Datetime(string='Appointment Date', required=True, tracking=True)
-    ref = fields.Char('Ref', required=True, tracking=True, related='patient_id.ref')
+    ref = fields.Char('Ref', required=True, tracking=True, related='patient_name.ref')
     priority = fields.Selection([('0', 'Normal'), ('1', 'Low'),
                                  ('2', 'High'), ('3', 'Very High')],
                                 default='1', required=True, string='Priority', tracking=True)
@@ -21,6 +22,7 @@ class AppointmentDb(models.Model):
     doctor_id = fields.Many2one('res.users', string='Doctor')
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines', 'appointment_id', string='Pharmacy lines')
     image = fields.Image(string='Image')
+    cancel_reason = fields.Text(string='Reason')
 
     def action_test(self):
         print("clicked on object button")
