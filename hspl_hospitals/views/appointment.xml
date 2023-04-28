@@ -6,8 +6,9 @@
         <field name="model">hspl.hospital.appointment</field>
         <field name="arch" type="xml">
             <tree multi_edit="1" decoration-warning="status == 'in_consultation'" decoration-success="status == 'done'" decoration-danger="status == 'cancelled'" decoration-info="status not in ('in_consultation', 'done', 'cancelled')">
+                <field name="appointment_id"/>
                 <field name="booking_date" optional="show"/>
-                <field name="patient_name_tree_view"/>
+                <field name="patient_name"/>
                 <field name="gender"/>
                 <field name="appointment_date"/>
                 <field name="doctor_id" widget="many2one_avatar_user"/>
@@ -87,6 +88,7 @@
                     <group>
                         <field name="image" widget="image" class="oe_avatar"/>
                         <group>
+                            <field name="appointment_id"/>
                             <field name="booking_date"/>
                             <field name="patient_name" default_focus="1"/>
                             <field name="gender"/>

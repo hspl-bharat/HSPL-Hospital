@@ -37,6 +37,8 @@ class HosptialPatient(models.Model):
             else:
                 rec.age = 0
 
+
+
     def name_get(self):
         patient_lst = []
         for rec in self:

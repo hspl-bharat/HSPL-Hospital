@@ -9,7 +9,7 @@
                   decoration-danger="status == 'cancelled'"
                   decoration-info="status not in ('in_consultation', 'done', 'cancelled')">
                 <field name="booking_date" optional="show"/>
-                <field name="patient_name_tree_view"/>
+                <field name="patient_name"/>
                 <field name="gender"/>
                 <field name="appointment_date"/>
                 <field name="doctor_id" widget="many2one_avatar_user"/>
