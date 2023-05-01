@@ -1,5 +1,7 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 from datetime import date
+from odoo.exceptions import ValidationError
+
 
 class HosptialPatient(models.Model):
     _name ='hspl.hospital.data'
@@ -17,10 +19,18 @@ class HosptialPatient(models.Model):
     tag_ids = fields.Many2many('patient.tag', string='Tags')
     # prescription = fields.Html('Prescription')
 
+    @api.constrains('date_of_birth')
+    def _check_date_of_birth(self):
+        for rec in self:
+            if rec.date_of_birth and rec.date_of_birth > fields.Date.today():
+                raise ValidationError(_("The entered date of birth is not accepted"))
     @api.model
     def create(self, values):
-        values['patient_id'] = self.env['ir.sequence'].next_by_code('hospital.patient')
-        return super(HosptialPatient, self).create(values)
+        res = super(HosptialPatient, self).create(values)
+        id = str(res.id)
+        res.patient_id = self.env['ir.sequence'].next_by_code('hospital.patient') + id
+        # print('VVVVVVVVVVV', res, res.id, res.read())
+        return res
 
     def write(self, values):
         if not self.patient_id and not values.get('patient_id'):

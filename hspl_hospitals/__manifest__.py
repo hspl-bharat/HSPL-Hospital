@@ -21,7 +21,7 @@ Manage the staff for giving better services to patients with the help of our sof
         'views/male_patient.xml',
         'views/female_patient.xml',
         'views/appointment.xml',
-        'views/configuration.xml',
+        'views/tag_view.xml',
         'views/draft_view.xml',
     ],
     'demo': [],

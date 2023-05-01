@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from odoo.exceptions import ValidationError
 
 
 class AppointmentDb(models.Model):
@@ -14,7 +15,7 @@ class AppointmentDb(models.Model):
     patient_name = fields.Many2one('hspl.hospital.data', string="Patient", required=True, tracking=True)
     gender = fields.Selection(related='patient_name.gender')
     appointment_date = fields.Datetime(string='Appointment Date', required=True, tracking=True)
-    ref = fields.Char('Ref', required=True, tracking=True, related='patient_name.ref')
+    ref = fields.Char('Ref', tracking=True) #, related='patient_name.ref'
     priority = fields.Selection([('0', 'Normal'), ('1', 'Low'),
                                  ('2', 'High'), ('3', 'Very High')],
                                 default='1', required=True, string='Priority', tracking=True)
@@ -70,13 +71,28 @@ class AppointmentDb(models.Model):
 
     @api.model
     def create(self, values):
-        values['appointment_id'] = self.env['ir.sequence'].next_by_code('hospital.patient')
+        values['appointment_id'] = self.env['ir.sequence'].next_by_code('patient.appointment')
         return super(AppointmentDb, self).create(values)
 
+    def unlink(self):
+        if self.status != 'draft':
+            raise ValidationError(_("You can delete the Appointment only when in 'Draft' state"))
+        return super(AppointmentDb, self).unlink()
+
     def write(self, values):
+        # if values.get('patient_name'):
+        #     curr_patient_id = self.env['hspl.hospital.data'].browse(int(values.get('patient_name')))
+        #     values['ref'] = curr_patient_id.ref
+        # # values['ref'] = self.patient_name.ref
+        # # print(">>>>>>>>",values)
+        # # print(">>>>>>>>",ret)
         if not self.appointment_id and not values.get('appointment_id'):
             values['appointment_id'] = self.env['ir.sequence'].next_by_code('patient.appointment')
-        return super(AppointmentDb, self).write(values)
+        res = super(AppointmentDb, self).write(values)
+        if values.get('patient_name'):
+            print(self, self.patient_name)
+            self.ref = self.patient_name.ref
+        return res
 
     # @api.model
     # def get_view(self, view_id=None, view_type='form', **options):
