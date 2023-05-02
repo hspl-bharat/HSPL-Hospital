@@ -26,6 +26,9 @@ class CancelAppointmentWizard(models.TransientModel):
         self.appointment_id.status = 'cancelled'
         if self.appointment_id.appointment_date.date() == fields.Date.today():
             raise ValidationError(_("Sorry, Cancellation is not allowed on the day of Appointment day"))
-        return
+        return {
+            'type' : 'ir.actions.client',
+            'tag' : 'reload'
+        }
 
 

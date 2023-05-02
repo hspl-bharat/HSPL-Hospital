@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="action_mark_as_done" model="ir.actions.server">
+        <field name="name">Mark as Done</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_hspl_hospital_appointment"/>
+        <field name="binding_model_id" ref="model_hspl_hospital_appointment"/>
+         <field name="binding_view_types">tree</field>
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+              if record.status == 'in_consultation':
+                record.action_done()
+        </field>
+    </record>
+
     <record id="view_hspl_hospital_appointment_tree" model="ir.ui.view">
         <field name="name">hspl.hospital.appointment.tree</field>
         <field name="model">hspl.hospital.appointment</field>
@@ -72,14 +86,14 @@
                             <field name="pending_appointment" widget="statinfo"/>
                         </button>
                     </div>
-                    <!--                    <div class="oe_button_box" name="button_box">-->
-                    <!--                        <button name="%(hspl_hospitals.action_draft_hospital_appointments)d"-->
-                    <!--                                type="action"-->
-                    <!--                                class="oe_stat_button"-->
-                    <!--                                icon="fa-pencil-square-o">-->
-                    <!--                            <field name="pending_appointment" widget="statinfo"/>-->
-                    <!--                        </button>-->
-                    <!--                    </div>-->
+<!--                                        <div class="oe_button_box" name="button_box">-->
+<!--                                            <button name="%(hspl_hospitals.action_draft_hospital_appointments)d"-->
+<!--                                                    type="action"-->
+<!--                                                    class="oe_stat_button"-->
+<!--                                                    icon="fa-pencil-square-o">-->
+<!--                                                <field name="pending_appointment" widget="statinfo"/>-->
+<!--                                            </button>-->
+<!--                                        </div>-->
                     <div>
                         <h1>
                             <field name="priority" widget="priority"/>
