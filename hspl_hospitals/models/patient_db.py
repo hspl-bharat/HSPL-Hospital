@@ -17,8 +17,16 @@ class HosptialPatient(models.Model):
     gender = fields.Selection([('M', 'Male'), ('F', 'Female')], required=True, string='Gender', tracking=True)
     active = fields.Boolean('Active', default=True, tracking=True)
     tag_ids = fields.Many2many('patient.tag', string='Tags')
+    patient_appointment_id = fields.One2many('hspl.hospital.appointment', 'patient_name', string='Appointment_id')
+    appointment_count = fields.Integer('Total Appointment', compute='_compute_appointment_count', store=False)
     # prescription = fields.Html('Prescription')
 
+    # @api.depends('patient_appointment_id')
+    def _compute_appointment_count(self):
+        for rec in self:
+            appointment_count = self.env['hspl.hospital.appointment'].search_count([('patient_name', '=', rec.id)])
+            rec.appointment_count = appointment_count
+            # rec.appointment_count = len(rec.patient_appointment_id)
     @api.constrains('date_of_birth')
     def _check_date_of_birth(self):
         for rec in self:
@@ -46,7 +54,6 @@ class HosptialPatient(models.Model):
                 rec.age = today.year - rec.date_of_birth.year - ((today.month, today.day) < (rec.date_of_birth.month, rec.date_of_birth.day))
             else:
                 rec.age = 0
-
 
 
     def name_get(self):

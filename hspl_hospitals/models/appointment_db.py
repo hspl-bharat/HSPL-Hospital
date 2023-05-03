@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from datetime import datetime
 from odoo.exceptions import ValidationError
 
 
@@ -22,12 +23,19 @@ class AppointmentDb(models.Model):
     status = fields.Selection([('draft', 'Draft'), ('in_consultation', 'In Consultation'),
                                ('done', 'Done'), ('cancelled', 'Cancelled')],
                               default="draft", string='Status', required=True, tracking=True)
+    active = fields.Boolean('Active', default=True, tracking=True)
     prescription = fields.Html('Prescription')
     doctor_id = fields.Many2one('res.users', string='Doctor')
     pharmacy_line_ids = fields.One2many('appointment.pharmacy.lines', 'appointment_id', string='Pharmacy lines')
     image = fields.Image(string='Image')
     cancel_reason = fields.Text(string='Reason')
     pending_appointment = fields.Integer('Pending Appointment', compute='_compute_pending_appointment')
+
+    def update_expire_appointments(self):
+        rec = self.search([])
+        for res in rec:
+            if res.appointment_date < datetime.today():
+                res.active = False
 
     def action_test(self):
         print("clicked on object button")
@@ -57,8 +65,8 @@ class AppointmentDb(models.Model):
 
     @api.depends('status')
     def _compute_pending_appointment(self):
-        total_len = self.env['hspl.hospital.appointment'].search_count([('status', '=', 'draft')])
-        self.pending_appointment = total_len
+        total_apt = self.env['hspl.hospital.appointment'].search_count([('status', '=', 'draft')])
+        self.pending_appointment = total_apt
 
     def action_pending_appointment_view(self):
         return {

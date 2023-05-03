@@ -27,6 +27,7 @@
                 <field name="appointment_date"/>
                 <field name="doctor_id" widget="many2one_avatar_user"/>
                 <field name="ref" optional="show"/>
+                <field name="active"/>
                 <field name="activity_ids" widget="list_activity"/>
                 <field name="status" widget="badge" decoration-warning="status == 'in_consultation'" decoration-success="status == 'done'" decoration-danger="status == 'cancelled'" decoration-info="status not in ('in_consultation', 'done', 'cancelled')"/>
             </tree>
@@ -112,6 +113,7 @@
                             <field name="appointment_date"/>
                             <field name="doctor_id" widget="many2one_avatar"/>
                             <field name="cancel_reason"/>
+                            <field name="active"/>
                         </group>
                     </group>
                     <group>
@@ -173,7 +175,6 @@
 
     <record id="action_hospital_appointments" model="ir.actions.act_window">
         <field name="name">Appointment</field>
-        <field name="type">ir.actions.act_window</field>
         <field name="res_model">hspl.hospital.appointment</field>
         <field name="view_mode">tree,form,activity</field>
         <field name="context">{}</field>

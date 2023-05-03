@@ -15,6 +15,7 @@ Manage the staff for giving better services to patients with the help of our sof
         'data/patient_tag_data.xml',
         'data/patient.tag.csv',
         'data/sequence_data.xml',
+        'data/ir_cron_for_appoinments.xml',
         'wizard/cancel_appointment_view.xml',
         'views/menu.xml',
         'views/patient.xml',
