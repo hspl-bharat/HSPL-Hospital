@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="abstract_testing"
+              name="Abstract Testing"
+              sequence="0"/>
+<!--              web_icon="hspl_hospitals,static/description/logo.png"-->
+
+
+    <menuitem id="details"
+              name="Details"
+              parent="abstract_testing"
+              sequence="0"/>
+
+    <menuitem id="main_edit"
+              name="Edit"
+              parent="abstract_testing"
+              sequence="1"/>
+
+</odoo>

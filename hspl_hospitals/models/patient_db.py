@@ -1,6 +1,7 @@
 from odoo import api, fields, models, _
 from datetime import date
 from odoo.exceptions import ValidationError
+import smtplib
 
 
 class HosptialPatient(models.Model):
@@ -15,11 +16,36 @@ class HosptialPatient(models.Model):
     ref = fields.Char('Ref', required=True, tracking=True)
     age = fields.Integer('Age', compute='_compute_age')
     gender = fields.Selection([('M', 'Male'), ('F', 'Female')], required=True, string='Gender', tracking=True)
+    email = fields.Char('Email')
     active = fields.Boolean('Active', default=True, tracking=True)
     tag_ids = fields.Many2many('patient.tag', string='Tags')
     patient_appointment_id = fields.One2many('hspl.hospital.appointment', 'patient_name', string='Appointment_id')
     appointment_count = fields.Integer('Total Appointment', compute='_compute_appointment_count', store=False)
     # prescription = fields.Html('Prescription')
+
+    @api.model
+    def send_birthday_mail(self):
+        # Query the database for people with birthdays today
+        today = date.today().strftime('%m-%d')
+        patientss = self.env['hspl.hospital.data'].search([('date_of_birth', 'like', today)])
+
+        # Send emails to employees with birthdays
+        for patient in patientss:
+            email_to = patient.email
+            email_subject = 'Happy Birthday {}'.format(patient.name)
+            email_body = 'Happy birthday, {}!'.format(patient.name)
+
+            # Send email using smtplib
+            gmail_user = 'bharathsplb@gmail.com'
+            gmail_password = 'Heliconia@1234'
+
+            message = 'Subject: {}\n\n{}'.format(email_subject, email_body)
+
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(gmail_user, gmail_password)
+            server.sendmail(gmail_user, email_to, message)
+            server.quit()
 
     # @api.depends('patient_appointment_id')
     def _compute_appointment_count(self):
@@ -41,6 +67,8 @@ class HosptialPatient(models.Model):
         return res
 
     def write(self, values):
+        print(">>>>>>>>>>>>>>>", date.today().strftime('%m-%d'))
+        print(">>>>>>>>>>>>>>>", self.date_of_birth.strftime('%m-%d'))
         if not self.patient_id and not values.get('patient_id'):
             values['patient_id'] = self.env['ir.sequence'].next_by_code('hospital.patient')
         return super(HosptialPatient, self).write(values)
