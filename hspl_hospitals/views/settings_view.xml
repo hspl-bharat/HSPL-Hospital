@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_hospital_settings_tree" model="ir.ui.view">
+        <field name="name">view_hospital_settings_tree</field>
+        <field name="model">hspl.hospital.settings</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="hospital_email"/>
+                <field name="hospital_contact"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_hospital_settings_form" model="ir.ui.view">
+        <field name="name">view_hospital_settings_form</field>
+        <field name="model">hspl.hospital.settings</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h2>Hospital Settings</h2>
+                    <div class="row mt16 o_settings_container" name="catalog_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="variant_options">
+                            <group>
+                                <group>
+                                    <field name="hospital_email" default_focus="1"/>
+                                </group>
+                                <group>
+                                    <field name="hospital_contact"/>
+                                </group>
+                            </group>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_setting_configuration" model="ir.actions.act_window">
+        <field name="name">Setting</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hspl.hospital.settings</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Enter Detatils
+            </p>
+        </field>
+    </record>
+    <menuitem id="settings_configuration"
+          name="Settings"
+          action="action_setting_configuration"
+          parent="configuration_root"
+          sequence="0"/>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="birthday_mail_template" model="mail.template">
+        <field name="name">Birthday Wishes</field>
+        <field name="model_id" ref="model_hspl_hospital_data"/>
+            <field name="email_from">{{ user.email_formatted }}</field>
+        <field name="email_to">{{ object.email }}</field>
+        <field name="subject">Warm wishes to {{ object.name }} for there good health</field>
+        <field name="description">Sent to customers with the credit note in attachment</field>
+        <field name="body_html" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Wishing you a very happy birthday {{ object.name }} and all the best for the year ahead. You have been a
+                part of our family here at the hospital, and we are grateful for the time we have spent with you. May
+                this birthday be a celebration of all the amazing things you have accomplished and a reminder of how
+                much you are loved.
+            </p>
+        </field>
+    </record>
+
+</odoo>

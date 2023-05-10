@@ -80,7 +80,7 @@
                 <field name="age"/>
                 <field name="gender"/>
                 <filter name="filter_male" string="Male" domain="[('gender','=','M')]" />
-                <filter name="filter_female" string="Female" domain="[('gender','=','F')]" />
+                <filter name="filter_female" string="Female" domain="[('gender','=','F')]"/>
                 <separator/>
 <!--                <filter name="filter_adults" string="Adult" domain="[('age','>=','18')]" />-->
 <!--                <filter name="filter_kids" string="Kids" domain="[('age','&lt;=','17')]" />-->

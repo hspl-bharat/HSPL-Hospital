@@ -25,27 +25,14 @@ class HosptialPatient(models.Model):
 
     @api.model
     def send_birthday_mail(self):
-        # Query the database for people with birthdays today
-        today = date.today().strftime('%m-%d')
-        patientss = self.env['hspl.hospital.data'].search([('date_of_birth', 'like', today)])
+        today = fields.Date.today()
+        patients = self.search([('date_of_birth', 'like', today.strftime('%m-%d'))])
+        template_id = self.env.ref('hspl_hospitals.birthday_mail_template').id
+        template = self.env['mail.template'].browse(template_id)
+        for patient in patients:
+            template.send_mail(patient.id, force_send=True)
 
-        # Send emails to employees with birthdays
-        for patient in patientss:
-            email_to = patient.email
-            email_subject = 'Happy Birthday {}'.format(patient.name)
-            email_body = 'Happy birthday, {}!'.format(patient.name)
 
-            # Send email using smtplib
-            gmail_user = 'bharathsplb@gmail.com'
-            gmail_password = 'Heliconia@1234'
-
-            message = 'Subject: {}\n\n{}'.format(email_subject, email_body)
-
-            server = smtplib.SMTP('smtp.gmail.com', 587)
-            server.starttls()
-            server.login(gmail_user, gmail_password)
-            server.sendmail(gmail_user, email_to, message)
-            server.quit()
 
     # @api.depends('patient_appointment_id')
     def _compute_appointment_count(self):

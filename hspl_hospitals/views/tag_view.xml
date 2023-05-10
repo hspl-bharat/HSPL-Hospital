@@ -53,5 +53,5 @@
           name="Tags"
           action="action_tags_home"
           parent="configuration_root"
-          sequence="0"/>
+          sequence="1"/>
 </odoo>
