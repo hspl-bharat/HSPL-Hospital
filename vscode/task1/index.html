@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        #black {
+            background-color: black;
+            height: 100px;
+        }
+
+        #black50 {
+            background-color: black;
+            height: 50px;
+        }
+
+        #footer-black {
+            background-color: black;
+            height: 80px;
+        }
+
+        .vertically-center {
+            line-height: 100px;
+        }
+
+        .vertically-center-footer {
+            line-height: 80px;
+        }
+
+        .page {
+            width: 21cm;
+            max-height: 29.7cm;
+            padding-top: 1.5cm;
+            margin: 1cm auto;
+            border: 1px #D3D3D3 solid;
+            /* border-radius: 5px; */
+            background: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .table {
+            margin-top: 5%;
+        }
+
+        .tc {
+            margin-right: 20%;
+        }
+
+        .footer {
+            margin-top: 10%;
+            margin-bottom: 0%;
+        }
+
+        .total {
+            margin-right: 10%;
+        }
+
+        h6 {
+            display: inline-block;
+        }
+
+        h1 {
+            font-size: 48px;
+        }
+    </style>
+
+    <title>Invoice</title>
+</head>
+
+<body>
+
+    <div class="page container-fluid">
+        <div class="row">
+            <div class="col-6 text-white" id="black">
+                <h1 class="vertically-center text-center ml-5"><b>I N V O I C E</b></h1>
+            </div>
+            <div class="col-6 mt-4">
+                <div class="row align-items-center">
+                    <div class="col-10 text-right">
+                        <h5><b>Invoice #</b></h5>
+                        <h5>00000A</h5>
+                    </div>
+                    <div class="col" id="black50">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 mt-3">
+                <h3 class="ml-5"><b>Heliconia Solution</b></h3>
+                <hr>
+                <div class="row justify-content-around">
+                    <div class="col-8">
+                        <h5 class="ml-5"><b>BILLING TO:</b></h5>
+                        <h5 class="ml-5">SWC HUB, 541-543, opposite Rajpath Complex, Bhayli, Vadodara, Gujarat 391410
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table text-center">
+            <thead class="text-white" id="black50">
+                <tr>
+                    <th scope="col">PRODUCT</th>
+                    <th scope="col">PRICE</th>
+                    <th scope="col">QTY</th>
+                    <th scope="col">TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>XYZ</td>
+                    <td>200</td>
+                    <td>2</td>
+                    <td>400</td>
+                </tr>
+                <tr>
+                    <td>XYZ</td>
+                    <td>200</td>
+                    <td>2</td>
+                    <td>400</td>
+                </tr>
+                <tr>
+                    <td>XYZ</td>
+                    <td>200</td>
+                    <td>2</td>
+                    <td>400</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="total text-right mt-5">
+            <h6><b>SUB TOTAL</b></h6>
+            <h6 class="ml-5">1200</h6> <br>
+            <h6><b>TAX</b></h6>
+            <h6 class="ml-5">10%</h6> <br>
+            <h6><b>TOTAL</b></h6>
+            <h6 class="ml-5">1320</h6>
+        </div>
+
+        <div class="footer">
+            <div class="tc">
+                <div class="row">
+                    <div class="col-1 mt-4" id="black50">
+
+                    </div>
+                    <div class="col">
+                        <h4><b>TERMS & CONDITIONS:</b></h4>
+                        <h6>​Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                            ut
+                            labore et
+                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                            ut
+                            aliquip
+                            ex ea luptatem.</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-social mt-5">
+                <div class="row text-white text-center" id="footer-black">
+                    <div class="col">
+                        <h6 class="vertically-center-footer">@socialmedia</h6>
+                    </div>
+                    <div class="col">
+                        <h6 class="vertically-center-footer">@socialmedia</h6>
+                    </div>
+                    <div class="col">
+                        <h6 class="vertically-center-footer">email@gmail.com</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
