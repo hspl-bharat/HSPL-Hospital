@@ -8,4 +8,3 @@ class HospitalSettings(models.Model):
 
     hospital_email = fields.Char('Email')
     hospital_contact = fields.Integer('Contacts')
-

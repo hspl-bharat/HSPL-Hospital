@@ -30,6 +30,8 @@ class AppointmentDb(models.Model):
     image = fields.Image(string='Image')
     cancel_reason = fields.Text(string='Reason')
     pending_appointment = fields.Integer('Pending Appointment', compute='_compute_pending_appointment')
+    company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
+    currency_id = fields.Many2one('res.currency', "Currency", related='company_id.currency_id', required=True)
 
     def update_expire_appointments(self):
         rec = self.search([])
@@ -140,3 +142,11 @@ class AppointmentPharmacylines(models.Model):
     price_unit = fields.Float(related='product_id.list_price')
     qty = fields.Integer(string='Quantity', default=1)
     appointment_id = fields.Many2one('hspl.hospital.appointment', string='Appointment')
+    currency_id = fields.Many2one('res.currency', related='appointment_id.currency_id')
+    price_subtotal = fields.Monetary(string='Subtotal', compute='_compute_price_subtotal')
+
+
+    @api.depends('price_unit', 'qty')
+    def _compute_price_subtotal(self):
+        for rec in self:
+            rec.price_subtotal = rec.price_unit * rec.qty

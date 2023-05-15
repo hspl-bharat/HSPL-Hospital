@@ -22,6 +22,7 @@ class HosptialPatient(models.Model):
     patient_appointment_id = fields.One2many('hspl.hospital.appointment', 'patient_name', string='Appointment_id')
     appointment_count = fields.Integer('Total Appointment', compute='_compute_appointment_count', store=False)
     # prescription = fields.Html('Prescription')
+    hospital_email = fields.Char(string="Hospital Email")
 
     @api.model
     def send_birthday_mail(self):
@@ -78,3 +79,8 @@ class HosptialPatient(models.Model):
             patient_lst.append((rec.id, name))
         return patient_lst
     # return [(rec.id, "%s:%s" % (rec.name, rec.ref )) for rec in self]
+
+    def get_hospital_email_from_settings(self):
+        email = self.env['ir.config_parameter'].get_param('hspl_hospitals.hospital_email')
+        self.hospital_email = email
+        return

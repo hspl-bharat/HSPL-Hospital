@@ -4,7 +4,7 @@
     <record id="birthday_mail_template" model="mail.template">
         <field name="name">Birthday Wishes</field>
         <field name="model_id" ref="model_hspl_hospital_data"/>
-            <field name="email_from">{{ user.email_formatted }}</field>
+            <field name="email_from">{{ (object.hospital_email or user.email_formatted) }}</field>
         <field name="email_to">{{ object.email }}</field>
         <field name="subject">Warm wishes to {{ object.name }} for there good health</field>
         <field name="description">Sent to customers with the credit note in attachment</field>

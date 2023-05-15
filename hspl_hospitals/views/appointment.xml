@@ -137,6 +137,7 @@
                                 <field name="product_id"/>
                                 <field name="price_unit"/>
                                 <field name="qty"/>
+                                 <field name="price_subtotal"/>
                             </tree>
                             <form>
                                 <group>
