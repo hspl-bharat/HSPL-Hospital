@@ -6,7 +6,7 @@ import smtplib
 
 class HosptialPatient(models.Model):
     _name ='hspl.hospital.data'
-    _description = 'testing'
+    _description = 'Patients Data'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     patient_id = fields.Char('ID')
@@ -79,7 +79,7 @@ class HosptialPatient(models.Model):
             patient_lst.append((rec.id, name))
         return patient_lst
     # return [(rec.id, "%s:%s" % (rec.name, rec.ref )) for rec in self]
-
+    @api.onchange()
     def get_hospital_email_from_settings(self):
         email = self.env['ir.config_parameter'].get_param('hspl_hospitals.hospital_email')
         self.hospital_email = email

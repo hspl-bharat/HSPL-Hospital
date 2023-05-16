@@ -12,6 +12,7 @@ Manage the staff for giving better services to patients with the help of our sof
     'depends': ['mail','product'],
     'data': [
         'security/ir.model.access.csv',
+        'security/security.xml',
         'data/patient_tag_data.xml',
         'data/patient.tag.csv',
         'data/sequence_data.xml',
