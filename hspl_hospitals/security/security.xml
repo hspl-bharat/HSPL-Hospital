@@ -11,4 +11,18 @@
             <field name="name">Assistant</field>
             <field name="category_id" ref="module_category_hspl_hospital"/>
         </record>
+
+        <record id="assistant_appointment_authority" model="ir.rule">
+            <field name="name">Assistant Appointment Authority</field>
+            <field ref="model_hspl_hospital_appointment" name="model_id"/>
+<!--            <field name="perm_write" eval="1"/>-->
+<!--            <field name="perm_create" eval="1"/>-->
+<!--            <field name="perm_read" eval="1"/>-->
+<!--            <field name="perm_unlink" eval="1"/>-->
+            <!-- You can attach this rule to a specific group, Or make it Global -->
+<!--            <field name="groups" eval="[(4, ref('group_hspl_hospital_appointment'))]"/>-->
+<!--            <field name="global" eval="1"/>-->
+        </record>
+
+
 </odoo>
