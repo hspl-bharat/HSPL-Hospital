@@ -13,7 +13,7 @@ class AppointmentDb(models.Model):
     booking_date = fields.Date(string='Booking Date', required=True, default=lambda s: fields.Date.context_today(s),
                                tracking=True)
     # patient_name_tree_view = fields.Char(related='patient_name.name', string='Patient')
-    patient_name = fields.Many2one('hspl.hospital.data', string="Patient", required=True, tracking=True)
+    patient_name = fields.Many2one('hspl.hospital.data', ondelete='restrict', string="Patient", required=True, tracking=True)
     gender = fields.Selection(related='patient_name.gender')
     appointment_date = fields.Datetime(string='Appointment Date', required=True, tracking=True)
     ref = fields.Char('Ref', tracking=True) #, related='patient_name.ref'
@@ -32,7 +32,12 @@ class AppointmentDb(models.Model):
     pending_appointment = fields.Integer('Pending Appointment', compute='_compute_pending_appointment')
     company_id = fields.Many2one('res.company', string="Company", default=lambda self: self.env.company)
     currency_id = fields.Many2one('res.currency', "Currency", related='company_id.currency_id', required=True)
-
+    product_ids = fields.Many2many("product.product", string="Products")
+    def submit(self):
+        search_var_ids = self.env['sale.order'].search([('partner_id', '=', self.partner_id.id)])
+        product_ids = search_var_ids.mapped('order_line').mapped('product_id')
+        print('.....................................',product_ids)
+        self.product_ids = [(6, 0, product_ids.ids)]
     def update_expire_appointments(self):
         rec = self.search([])
         for res in rec:
@@ -67,6 +72,7 @@ class AppointmentDb(models.Model):
 
     @api.depends('status')
     def _compute_pending_appointment(self):
+        print('---------------------',self.env['hspl.hospital.appointment'])
         total_apt = self.env['hspl.hospital.appointment'].search_count([('status', '=', 'draft')])
         self.pending_appointment = total_apt
 
@@ -94,13 +100,17 @@ class AppointmentDb(models.Model):
         #     curr_patient_id = self.env['hspl.hospital.data'].browse(int(values.get('patient_name')))
         #     values['ref'] = curr_patient_id.ref
         # # values['ref'] = self.patient_name.ref
-        # # print(">>>>>>>>",values)
+        print(">>>>>>>>",values)
+        print(">>>>|||||||||>>>>",self.appointment_id)
+        print(">>>>|||||||||>>>>",values.get('appointment_id'))
         # # print(">>>>>>>>",ret)
         if not self.appointment_id and not values.get('appointment_id'):
             values['appointment_id'] = self.env['ir.sequence'].next_by_code('patient.appointment')
         res = super(AppointmentDb, self).write(values)
+        print('<<<<<<<<<<<<<<<<<',res)
+        print('<<<<<<<<<<<<<<<<<',values)
         if values.get('patient_name'):
-            print(self, self.patient_name)
+            # print(self, self.patient_name)
             self.ref = self.patient_name.ref
         return res
 

@@ -130,6 +130,7 @@
                     <page name="prescription" string="Prescription">
                         <field name="prescription" placeholder="Enter your prescription here..."
                                options="{'collaborative': true, 'resizable':true, 'code_view':true}"/>
+                        <field name="product_ids"/>
                     </page>
                     <page name="pharmacy" string="Pharmacy">
                         <field name="pharmacy_line_ids">

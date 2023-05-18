@@ -81,6 +81,6 @@ class HosptialPatient(models.Model):
     # return [(rec.id, "%s:%s" % (rec.name, rec.ref )) for rec in self]
     @api.onchange()
     def get_hospital_email_from_settings(self):
-        email = self.env['ir.config_parameter'].get_param('hspl_hospitals.hospital_email')
+        email = self.env['ir.config_parameter'].sudo().get_param('hspl_hospitals.hospital_email')
         self.hospital_email = email
         return

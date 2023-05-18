@@ -20,6 +20,24 @@
         </field>
     </record>
 
+    <record id="view_hspl_hospital_patient_pivot" model="ir.ui.view">
+        <field name="name">hspl.hospital.data.pivot</field>
+        <field name="model">hspl.hospital.data</field>
+        <field name="arch" type="xml">
+            <pivot>
+                <field name="date" type="col"/>
+                <field name="patient_id"/>
+                <field name="name"/>
+                <field name="date_of_birth"/>
+                <field name="ref"/>
+                <field name="age"/>
+                <field name="gender" type="row"/>
+                <field name="email"/>
+                <field name="appointment_count"/>
+                <field name="tag_ids" type="row" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+            </pivot>
+        </field>
+    </record>
 
     <record id="view_hspl_hospital_patient_form" model="ir.ui.view">
         <field name="name">hspl.hospital.data.form</field>
@@ -104,7 +122,7 @@
         <field name="name">Patients</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hspl.hospital.data</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">tree,form,kanban,pivot</field>
         <field name="context">{'search_default_filter_adults' : 1}</field>
         <field name="help" type="html">
             <p class="o_view_noncontent_smiling_face">
