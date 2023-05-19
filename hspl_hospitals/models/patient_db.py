@@ -35,7 +35,7 @@ class HosptialPatient(models.Model):
 
 
 
-    # @api.depends('patient_appointment_id')
+    @api.depends('patient_appointment_id')
     def _compute_appointment_count(self):
         for rec in self:
             appointment_count = self.env['hspl.hospital.appointment'].search_count([('patient_name', '=', rec.id)])

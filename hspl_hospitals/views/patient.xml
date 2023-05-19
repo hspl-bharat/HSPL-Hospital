@@ -25,16 +25,16 @@
         <field name="model">hspl.hospital.data</field>
         <field name="arch" type="xml">
             <pivot>
-                <field name="date" type="col"/>
+                <field name="date" type="row"/>
                 <field name="patient_id"/>
                 <field name="name"/>
                 <field name="date_of_birth"/>
                 <field name="ref"/>
                 <field name="age"/>
-                <field name="gender" type="row"/>
+                <field name="gender" type="col"/>
                 <field name="email"/>
                 <field name="appointment_count"/>
-                <field name="tag_ids" type="row" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                <field name="tag_ids" type="col" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
             </pivot>
         </field>
     </record>
@@ -100,11 +100,11 @@
                 <filter name="filter_male" string="Male" domain="[('gender','=','M')]" />
                 <filter name="filter_female" string="Female" domain="[('gender','=','F')]"/>
                 <separator/>
-<!--                <filter name="filter_adults" string="Adult" domain="[('age','>=','18')]" />-->
+<!--                    <filter name="filter_adults" string="Adult" domain="[('age','>=',18)]" />-->
 <!--                <filter name="filter_kids" string="Kids" domain="[('age','&lt;=','17')]" />-->
                 <separator/>
-                <filter name="filter_active" string="Active" domain="[('active','=','False')]" />
-                <filter name="filter_inactive" string="Inactive" domain="[('active','=','True')]" />
+                <filter name="filter_active" string="Active" domain="[('active','=',False)]" />
+                <filter name="filter_inactive" string="Inactive" domain="[('active','=',True)]" />
                 <group expand="0" string="Group By">
                     <filter name="group_by_gender" string="Gender" context="{'group_by':'gender'}"/>
                     <filter name="group_by_ref" string="Reference" context="{'group_by':'ref'}"/>
@@ -123,7 +123,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hspl.hospital.data</field>
         <field name="view_mode">tree,form,kanban,pivot</field>
-        <field name="context">{'search_default_filter_adults' : 1}</field>
+        <field name="context">{'search_default_filter_adults' : 1, 'active_test' : False}</field>
         <field name="help" type="html">
             <p class="o_view_noncontent_smiling_face">
                 Create Your First Patients

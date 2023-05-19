@@ -76,7 +76,7 @@ class AppointmentDb(models.Model):
         total_apt = self.env['hspl.hospital.appointment'].search_count([('status', '=', 'draft')])
         self.pending_appointment = total_apt
 
-    def action_pending_appointment_view(self):
+    def action_pending_appointment_view(self):  # Magic button
         return {
             'name': 'draft_view',
             'view_mode': 'tree,form',
