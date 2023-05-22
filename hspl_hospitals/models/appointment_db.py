@@ -2,7 +2,6 @@ from odoo import api, fields, models, _
 from datetime import datetime
 from odoo.exceptions import ValidationError
 
-
 class AppointmentDb(models.Model):
     _name = 'hspl.hospital.appointment'
     _description = 'appointments'
@@ -72,7 +71,7 @@ class AppointmentDb(models.Model):
 
     @api.depends('status')
     def _compute_pending_appointment(self):
-        print('---------------------',self.env['hspl.hospital.appointment'])
+        # print('---------------------',self.env['hspl.hospital.appointment'])
         total_apt = self.env['hspl.hospital.appointment'].search_count([('status', '=', 'draft')])
         self.pending_appointment = total_apt
 

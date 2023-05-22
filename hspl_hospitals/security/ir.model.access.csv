@@ -4,4 +4,5 @@ access.hspl.hospital.appointment,access_hspl_hospital_appointment,model_hspl_hos
 access.appointment.pharmacy.lines,access_appointment_pharmacy_lines,model_appointment_pharmacy_lines,base.group_user,1,1,1,1
 access.patient.tag,access_patient_tag,model_patient_tag,base.group_user,1,1,1,1
 access.cancel.appointment.wizard,access_cancel_appointment_wizard,model_cancel_appointment_wizard,base.group_user,1,1,1,1
+access.appointment.report.wizard,access_appointment_report_wizard,model_appointment_report_wizard,base.group_user,1,1,1,1
 access.hspl.hospital.settings,access_hspl_hospital_settings,model_hspl_hospital_settings,base.group_user,1,1,1,1

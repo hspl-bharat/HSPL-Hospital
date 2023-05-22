@@ -4,6 +4,8 @@ from odoo import models, fields, api
 class Employee(models.Model):
     _name = 'employee'
     # _inherit = 'noteable'
+    _description = 'employee'
+
 
     name = fields.Char(string='Name')
     age = fields.Integer(string='Age')
@@ -16,6 +18,8 @@ class Employee(models.Model):
 class Department(models.Model):
     _name = 'department'
     # _inherit = 'noteable'
+    _description = 'department'
+
 
     name = fields.Char(string='Name')
     description = fields.Text(string='Description')

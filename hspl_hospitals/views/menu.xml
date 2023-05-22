@@ -20,9 +20,20 @@
               parent="hospital_root"
               sequence="2"/>
 
+    <menuitem id="report_root"
+              name="Reports"
+              parent="hospital_root"
+              sequence="3"/>
+
     <menuitem id="menu_cancel_appointment"
-          name="Cancellation"
-          parent="appointment_master"
-          action="action_cancel_appointment"
-          sequence="10"/>
+              name="Cancellation"
+              parent="appointment_master"
+              action="action_cancel_appointment"
+              sequence="10"/>
+
+    <menuitem id="menu_report_appointment"
+              name="Appointment"
+              parent="report_root"
+              action="action_report_appointment"
+              sequence="10"/>
 </odoo>
