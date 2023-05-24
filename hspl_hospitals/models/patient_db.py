@@ -14,7 +14,7 @@ class HosptialPatient(models.Model):
     name = fields.Char('Name', required=True, tracking=True)
     date_of_birth = fields.Date('Date Of Birth', required=True, tracking=True)
     ref = fields.Char('Ref', required=True, tracking=True)
-    age = fields.Integer('Age', compute='_compute_age')
+    age = fields.Integer('Age') #, compute='_compute_age'
     gender = fields.Selection([('M', 'Male'), ('F', 'Female')], required=True, string='Gender', tracking=True)
     email = fields.Char('Email')
     active = fields.Boolean('Active', default=True, tracking=True)
@@ -37,6 +37,7 @@ class HosptialPatient(models.Model):
 
     @api.depends('patient_appointment_id')
     def _compute_appointment_count(self):
+        print(self,'--------------------')
         for rec in self:
             appointment_count = self.env['hspl.hospital.appointment'].search_count([('patient_name', '=', rec.id)])
             rec.appointment_count = appointment_count
@@ -62,14 +63,14 @@ class HosptialPatient(models.Model):
         return super(HosptialPatient, self).write(values)
 
 
-    @api.depends('date_of_birth')
-    def _compute_age(self):
-        for rec in self:
-            today = date.today()
-            if rec.date_of_birth:
-                rec.age = today.year - rec.date_of_birth.year - ((today.month, today.day) < (rec.date_of_birth.month, rec.date_of_birth.day))
-            else:
-                rec.age = 0
+    @api.onchange('date_of_birth')
+    def _onchange_age(self):
+    # def _compute_age(self):
+        today = date.today()
+        if self.date_of_birth:
+            self.age = today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
+        else:
+            self.age = 0
 
 
     def name_get(self):
@@ -79,8 +80,9 @@ class HosptialPatient(models.Model):
             patient_lst.append((rec.id, name))
         return patient_lst
     # return [(rec.id, "%s:%s" % (rec.name, rec.ref )) for rec in self]
-    @api.onchange()
+
     def get_hospital_email_from_settings(self):
+        print(self,'-------...............---------')
         email = self.env['ir.config_parameter'].sudo().get_param('hspl_hospitals.hospital_email')
         self.hospital_email = email
         return

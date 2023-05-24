@@ -25,6 +25,11 @@
               parent="hospital_root"
               sequence="3"/>
 
+    <menuitem id="res_model"
+              name="Res Model"
+              parent="hospital_root"
+              sequence="4"/>
+
     <menuitem id="menu_cancel_appointment"
               name="Cancellation"
               parent="appointment_master"

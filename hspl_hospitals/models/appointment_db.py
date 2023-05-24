@@ -15,7 +15,7 @@ class AppointmentDb(models.Model):
     patient_name = fields.Many2one('hspl.hospital.data', ondelete='restrict', string="Patient", required=True, tracking=True)
     gender = fields.Selection(related='patient_name.gender')
     appointment_date = fields.Datetime(string='Appointment Date', required=True, tracking=True)
-    ref = fields.Char('Ref', tracking=True) #, related='patient_name.ref'
+    ref = fields.Char('Ref', tracking=True, related='patient_name.ref') #, related='patient_name.ref'
     priority = fields.Selection([('0', 'Normal'), ('1', 'Low'),
                                  ('2', 'High'), ('3', 'Very High')],
                                 default='1', required=True, string='Priority', tracking=True)
@@ -38,10 +38,10 @@ class AppointmentDb(models.Model):
         print('.....................................',product_ids)
         self.product_ids = [(6, 0, product_ids.ids)]
     def update_expire_appointments(self):
-        rec = self.search([])
-        for res in rec:
-            if res.appointment_date < datetime.today():
-                res.active = False
+        records = self.search([])
+        for rec in records:
+            if rec.appointment_date < datetime.today():
+                rec.active = False
 
     def action_test(self):
         print("clicked on object button")
@@ -93,21 +93,20 @@ class AppointmentDb(models.Model):
         if self.status != 'draft':
             raise ValidationError(_("You can delete the Appointment only when in 'Draft' state"))
         return super(AppointmentDb, self).unlink()
-
     def write(self, values):
         # if values.get('patient_name'):
         #     curr_patient_id = self.env['hspl.hospital.data'].browse(int(values.get('patient_name')))
         #     values['ref'] = curr_patient_id.ref
-        # # values['ref'] = self.patient_name.ref
-        print(">>>>>>>>",values)
-        print(">>>>|||||||||>>>>",self.appointment_id)
-        print(">>>>|||||||||>>>>",values.get('appointment_id'))
+        # values['ref'] = self.patient_name.ref
+        # print(">>>>>>>>",values)
+        # print(">>>>|||||||||>>>>",self.appointment_id)
+        # print(">>>>|||||||||>>>>",values.get('appointment_id'))
         # # print(">>>>>>>>",ret)
         if not self.appointment_id and not values.get('appointment_id'):
             values['appointment_id'] = self.env['ir.sequence'].next_by_code('patient.appointment')
         res = super(AppointmentDb, self).write(values)
-        print('<<<<<<<<<<<<<<<<<',res)
-        print('<<<<<<<<<<<<<<<<<',values)
+        # print('<<<<<<<<<<<<<<<<<',res)
+        # print('<<<<<<<<<<<<<<<<<',values)
         if values.get('patient_name'):
             # print(self, self.patient_name)
             self.ref = self.patient_name.ref
