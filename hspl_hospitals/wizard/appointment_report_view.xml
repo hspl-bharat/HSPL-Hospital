@@ -16,7 +16,8 @@
                         </group>
                     </group>
                     <footer>
-                        <button name="action_print_report" string="Print" type="object" data-hotkey="q" class="btn btn-primary"/>
+                        <button name="action_print_pdf_report" string="Print Pdf" type="object" data-hotkey="q" class="btn btn-primary"/>
+                        <button name="action_print_xlsx_report" string="Print XLSX" type="object" data-hotkey="q" class="btn btn-primary"/>
                         <button string="Discard" special="cancel" data-hotkey="z" class="btn btn-secondary"/>
                     </footer>
                 </sheet>

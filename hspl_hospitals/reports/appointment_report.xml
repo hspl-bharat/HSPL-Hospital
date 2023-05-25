@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <template id="qweb_appointment_report_template">
+        <template id="qweb_appointment_pdf_report_template">
             <t t-call="web.html_container">
                 <t t-call="web.external_layout">
                     <div class="page">
@@ -79,13 +79,23 @@
         </template>
     </data>
 
-    <record id="action_qweb_report_appointment" model="ir.actions.report">
-        <field name="name">Print Appointments Report</field>
+    <record id="action_qweb_pdf_report_appointment" model="ir.actions.report">
+        <field name="name">Print Appointments PDF Report</field>
         <field name="model">appointment.report.wizard</field>
         <field name="report_type">qweb-pdf</field>
-        <field name="report_name">hspl_hospitals.qweb_appointment_report_template</field>
-        <field name="report_file">hspl_hospitals.qweb_appointment_report_template</field>
+        <field name="report_name">hspl_hospitals.qweb_appointment_pdf_report_template</field>
+        <field name="report_file">hspl_hospitals.qweb_appointment_pdf_report_template</field>
         <field name="binding_model_id" ref="model_appointment_report_wizard"/>
         <field name="binding_type">report</field>
     </record>
+
+<!--    <record id="action_qweb_xlsx_report_appointment" model="ir.actions.report">-->
+<!--        <field name="name">Print Appointments XLSX Report</field>-->
+<!--        <field name="model">appointment.report.wizard</field>-->
+<!--        <field name="report_type">xlsx</field>-->
+<!--        <field name="report_name">hspl_hospitals.qweb_appointment_xlsx_report_template</field>-->
+<!--        <field name="report_file">hspl_hospitals.qweb_appointment_xlsx_report_template</field>-->
+<!--        <field name="binding_model_id" ref="model_appointment_report_wizard"/>-->
+<!--        <field name="binding_type">report</field>-->
+<!--    </record>-->
 </odoo>
