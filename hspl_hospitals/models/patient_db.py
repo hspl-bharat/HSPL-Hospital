@@ -22,7 +22,13 @@ class HosptialPatient(models.Model):
     patient_appointment_id = fields.One2many('hspl.hospital.appointment', 'patient_name', string='Appointment_id')
     appointment_count = fields.Integer('Total Appointment', compute='_compute_appointment_count', store=False)
     # prescription = fields.Html('Prescription')
-    hospital_email = fields.Char(string="Hospital Email")
+    ir_parameter_hospital_email = fields.Char('string="Hospital Email"', compute="_compute_ir_parameter_hospital_email")
+
+    def _compute_ir_parameter_hospital_email(self):
+        for record in self:
+            print(self, '-------...............---------')
+            record.ir_parameter_hospital_email = self.env['ir.config_parameter'].sudo().get_parameter("hspl_hospitals.hospital_email")
+        return
 
     @api.model
     def send_birthday_mail(self):
@@ -35,7 +41,6 @@ class HosptialPatient(models.Model):
 
     @api.depends('patient_appointment_id')
     def _compute_appointment_count(self):
-        print(self, '--------------------')
         for rec in self:
             appointment_count = self.env['hspl.hospital.appointment'].search_count([('patient_name', '=', rec.id)])
             rec.appointment_count = appointment_count
@@ -57,8 +62,6 @@ class HosptialPatient(models.Model):
         return res
 
     def write(self, values):
-        print(">>>>>>>>>>>>>>>", date.today().strftime('%m-%d'))
-        print(">>>>>>>>>>>>>>>", self.date_of_birth.strftime('%m-%d'))
         if not self.patient_id and not values.get('patient_id'):
             values['patient_id'] = self.env['ir.sequence'].next_by_code('hospital.patient')
         return super(HosptialPatient, self).write(values)
@@ -87,8 +90,4 @@ class HosptialPatient(models.Model):
 
 # return [(rec.id, "%s:%s" % (rec.name, rec.ref )) for rec in self]
 
-def get_hospital_email_from_settings(self):
-    print(self, '-------...............---------')
-    email = self.env['ir.config_parameter'].sudo().get_param('hspl_hospitals.hospital_email')
-    self.hospital_email = email
-    return
+
