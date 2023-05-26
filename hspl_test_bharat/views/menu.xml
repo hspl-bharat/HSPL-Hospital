@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="candidates_root"
+              name="Candidates"
+              sequence="0"/>
+
+    <menuitem id="candidates_details_root"
+              name="Candidates Details"
+              parent="candidates_root"
+              sequence="0"/>
+
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="view_partner_master_form" model="ir.ui.view">
+        <field name="name">view.partner.master.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_server_action_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//group[@name='action_content']" position="after">
+                    <field name="member"/>
+
+        </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_master_data_tree" model="ir.ui.view">
+        <field name="name">master.data.tree</field>
+        <field name="model">master.data</field>
+        <field name="arch" type="xml">
+            <tree default_order='ranking'>
+                <field name="name"/>
+                <field name="ranking"/>
+                <field name="tag_ids" widget="many2many_tags"
+                       options="{'color_field': 'color', 'no_create_edit': True}"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="view_master_data_form" model="ir.ui.view">
+        <field name="name">master.data.form</field>
+        <field name="model">master.data</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" default_focus="1"/>
+                        </group>
+                        <group>
+                            <field name="ranking"/>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_candidates" model="ir.actions.act_window">
+        <field name="name">Candiates</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">master.data</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_noncontent_smiling_face">
+                Create Your First Candidate
+            </p>
+        </field>
+    </record>
+    <menuitem id="candidates_details"
+              name="Candidates Details"
+              action="action_candidates"
+              parent="candidates_details_root"
+              sequence="0"/>
+</odoo>

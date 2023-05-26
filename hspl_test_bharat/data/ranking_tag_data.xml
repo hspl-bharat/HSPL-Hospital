@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ranking_tag_gold" model="ranking.tag">
+    <field name="name">Gold</field>
+    </record>
+
+    <record id="ranking_tag_silver" model="ranking.tag">
+    <field name="name">Silver</field>
+    </record>
+
+    <record id="ranking_tag_bronze" model="ranking.tag">
+    <field name="name">Bronze</field>
+    </record>
+
+</odoo>
