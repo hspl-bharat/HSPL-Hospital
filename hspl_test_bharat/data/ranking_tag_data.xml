@@ -2,15 +2,18 @@
 <odoo>
 
     <record id="ranking_tag_gold" model="ranking.tag">
-    <field name="name">Gold</field>
+        <field name="name">Gold</field>
+        <field name="color">#FFD700</field>
     </record>
 
     <record id="ranking_tag_silver" model="ranking.tag">
-    <field name="name">Silver</field>
+        <field name="name">Silver</field>
+        <field name="color">#C0C0C0</field>
     </record>
 
     <record id="ranking_tag_bronze" model="ranking.tag">
-    <field name="name">Bronze</field>
+        <field name="name">Bronze</field>
+        <field name="color">#CD7F32</field>
     </record>
 
 </odoo>

@@ -6,5 +6,5 @@ class PartnerMaster(models.Model):
     _inherit = 'res.partner'
     _description = 'Partner Master Data'
 
-    member = fields.Selection([('Y', 'is a member'), ('N', 'not a member')], string='Member')
-    candidate_id = fields.Many2many('master.data', string='Candidate Id')
+    is_a_member = fields.Boolean('is a member')
+    master_id = fields.Many2one('master.data', string='Master Id')

@@ -2,19 +2,18 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
-
-class Master(models.Model):
+class MembershipLevel(models.Model):
     _name = 'master.data'
     _description = 'Master Data'
 
-    name = fields.Char('Name', required=True, tracking=True)
+    name = fields.Char('Name', tracking=True)
     ranking = fields.Integer('Ranking')
-    tag_ids = fields.Many2many('ranking.tag', string='Tags')
     display_name = fields.Char('Display Name')
-
+    # ,store = True, compute = '_compute_display_name'
+    color_ids = fields.One2many('ranking.tag', 'master_id', string='Color')
 
     _sql_constraints = [
-        ('ranking_uniq', 'unique (ranking)', "Rank already exists !"),
+        ('ranking_unique', 'unique (ranking)', "Rank already exists !"),
     ]
 
     @api.onchange('ranking')
@@ -22,10 +21,7 @@ class Master(models.Model):
         if self.ranking > 9:
             raise ValidationError(_("Cannot enter more than 10 record "))
 
-
-    def name_get(self):
-        candiate_lst = []
-        for rec in self:
-            name = rec.name + '  ' + '[' + rec.ranking + ']'
-            candiate_lst.append((rec.id, name))
-        return candiate_lst
+    # @api.depends('name','ranking')
+    # def _compute_display_name(self):
+    #     for rec in self:
+    #         rec.display_name = str(rec.ranking) +':'+ str(rec.color)

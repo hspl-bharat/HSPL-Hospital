@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_list_values" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('o_portal_my_security')]" position="after">
+            <br></br>
+            <div class="p-3 mb-2 bg-primary text-white">Membership Details</div>
+                <t t-set="partner" t-value="request.env.user.partner_id"/>"
+                  <t t-esc="partner.master_id.display_name"/>
+           </xpath>
+    </template>
+</odoo>

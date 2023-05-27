@@ -4,7 +4,8 @@ class RankingTag(models.Model):
     _name ='ranking.tag'
     _description = 'Ranking Tags'
 
-    name = fields.Char('Name', required=True, tracking=True)
-    active = fields.Boolean('Active', default=True, tracking=True)
-    color = fields.Text(string='color')
-    sequence = fields.Integer(string='Sequence')
+    name = fields.Char('Name')
+    tag_color = fields.Boolean('Active')
+    color = fields.Char(string='color')
+    active = fields.Boolean('Active')
+    master_id = fields.Many2one('master.data', string='Master Id')
