@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access.master.data,access_master_data,model_master_data,base.group_user,1,1,1,1
 access.ranking.tag,access_ranking_tag,model_ranking_tag,base.group_user,1,1,1,1
+access.vendor.report.wizard,access_vendor_report_wizard,model_vendor_report_wizard,base.group_user,1,1,1,1

@@ -20,6 +20,7 @@
         'views/sale_order_inherit.xml',
         'views/my_account_template.xml',
         'views/purchase_report_inherit.xml',
+        'wizard/vendor_report.xml',
 
     ],
     'demo': [],
