@@ -9,6 +9,7 @@ class AppointmentReportWizard(models.TransientModel):
     vendor_ids = fields.Many2many('res.partner', string="Vendor Id")
 
 
+
     def action_print_vendor_report(self):
         purchase_obj = self.env['purchase.order']
         for vender_id in self.vendor_ids:
@@ -16,37 +17,41 @@ class AppointmentReportWizard(models.TransientModel):
         if purchase_ids:
             file_data = BytesIO()
             workbook = xlsxwriter.Workbook(file_data)
-            sheet = workbook.add_worksheet("Vendor Report Sheet")
-            headers = [
-                "PO #",
-                "Date",
-                "Vendor Name",
-                "Status",
-                "Total Amount"
-            ]
+            worksheet = workbook.add_worksheet()
+        headers = [
+            "PO #",
+            "Date",
+            "Vendor Name",
+            "Status",
+            "Total Amount"
+        ]
 
-            bold = workbook.add_format({"bold": True})
-            date_format = workbook.add_format(
-                {"text_wrap": True, "num_format": "dd-mm-yyyy"}
-            )
-            row = 0
+        sheet = workbook.add_worksheet("Vendor Report")
+        bold = workbook.add_format({"bold": True})
+        date_format = workbook.add_format(
+            {"text_wrap": True, "num_format": "dd-mm-yyyy"}
+        )
+        row = 0
+        column = 0
+        for header in headers:
+            sheet.set_column(row, column, 19)
+            sheet.write(row, column, header, bold)
+            column = column + 1
+
+        row = 1
+        i = 0
+        for rec in purchase_ids:
             column = 0
-            for header in headers:
-                sheet.set_column(row, column, 19)
-                sheet.write(row, column, header, bold)
-                column = column + 1
-
-            row = 1
-            for rec in purchase_ids:
-                column = 0
-                sheet.write(row, column, rec.name or "")
-                column = column + 1
-                sheet.write(row, column, rec.date_order, date_format)
-                column = column + 1
-                sheet.write(row, column, rec.partner_id.name or "")
-                column = column + 1
-                sheet.write(row, column, rec.state or "")
-                column = column + 1
-                sheet.write(row, column, rec.amount_total or "")
-                row = row + 1
-            print("----------------hiiiiiiiiiiiiiii")
+            sheet.write(row, column, rec.name or "")
+            column = column + 1
+            sheet.write(row, column, rec.date_order, date_format)
+            column = column + 1
+            sheet.write(row, column, rec.partner_id.name or "")
+            column = column + 1
+            sheet.write(row, column, rec.state or "")
+            column = column + 1
+            sheet.write(row, column, rec.amount_total or "")
+            column = column + 1
+            row = row + 1
+            i = i + 1
+        print("----------------hiiiiiiiiiiiiiii")

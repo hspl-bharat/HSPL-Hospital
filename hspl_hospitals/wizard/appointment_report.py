@@ -2,6 +2,15 @@ from odoo import api, fields, models, _
 import xlwt
 import base64
 from io import BytesIO
+import json
+from odoo.tools import date_utils
+
+class AppointmentXmlReportWizard(models.TransientModel):
+    _name ='appointment.xml.report.wizard'
+    _description = 'Appointment Xml Report Wizard'
+
+    report_name = fields.Char('File name')
+    file_name = fields.Binary('Report')
 
 class AppointmentReportWizard(models.TransientModel):
     _name ='appointment.report.wizard'
@@ -29,10 +38,11 @@ class AppointmentReportWizard(models.TransientModel):
             'from_data': self.read()[0],
             'appointments': appointments
         }
-        return self.env.ref('hspl_hospitals.action_qweb_report_appointment').report_action(self, data=data)
+        return self.env.ref('hspl_hospitals.action_qweb_pdf_report_appointment').report_action(self, data=data)
 
     def action_print_xlsx_report(self):
         filename = self.patient_id.name
+
         workbook = xlwt.Workbook(encoding='utf-8')
         sheet1 = workbook.add_sheet('Appointments', cell_overwrite_ok=True)
         format1 = xlwt.easyxf('align: horiz center; font: color black,bold True; borders: top_color black, bottom_color black, left_color black, right_color black, left thin, right thin,top thin,bottom thin; pattern: pattern solid, fore_color aqua')
@@ -42,5 +52,22 @@ class AppointmentReportWizard(models.TransientModel):
 
         stream = BytesIO()
         workbook.save(stream)
+        stream.seek(0)
         out = base64.encodebytes(stream.getvalue())
-        print("Excel Report")
+
+        excel_id = self.env['appointment.xml.report.wizard'].create({
+            'report_name':filename,
+            'file_name':out
+        })
+
+        print("Excel Report",self.patient_id.name)
+        return {
+            'type': 'ir.actions.report',
+            'data': {'model': 'appointment.report.wizard',
+                     'options': json.dumps(out,
+                                           default=date_utils.json_default),
+                     'output_format': 'xlsx',
+                     'report_name': "Vendor Report",
+                     },
+            'report_type': 'stock_xlsx',
+        }

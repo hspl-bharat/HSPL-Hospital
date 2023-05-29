@@ -6,3 +6,4 @@ access.patient.tag,access_patient_tag,model_patient_tag,base.group_user,1,1,1,1
 access.cancel.appointment.wizard,access_cancel_appointment_wizard,model_cancel_appointment_wizard,base.group_user,1,1,1,1
 access.appointment.report.wizard,access_appointment_report_wizard,model_appointment_report_wizard,base.group_user,1,1,1,1
 access.res.partner.inherit,access_res_partner_inherit,model_res_partner_inherit,base.group_user,1,1,1,1
+access.appointment.xml.report.wizard,access_appointment_xml_report_wizard,model_appointment_xml_report_wizard,base.group_user,1,1,1,1

@@ -8,7 +8,7 @@ class MembershipLevel(models.Model):
 
     name = fields.Char('Name', tracking=True)
     ranking = fields.Integer('Ranking')
-    display_name = fields.Char('Display Name')
+    display_name = fields.Char('Display Name' ,store = True, compute = '_compute_display_name')
     # ,store = True, compute = '_compute_display_name'
     color_ids = fields.One2many('ranking.tag', 'master_id', string='Color')
 
@@ -21,7 +21,7 @@ class MembershipLevel(models.Model):
         if self.ranking > 9:
             raise ValidationError(_("Cannot enter more than 10 record "))
 
-    # @api.depends('name','ranking')
-    # def _compute_display_name(self):
-    #     for rec in self:
-    #         rec.display_name = str(rec.ranking) +':'+ str(rec.color)
+    @api.depends('name','ranking')
+    def _compute_display_name(self):
+        for rec in self:
+            rec.display_name = str(rec.ranking) +':'+ str(rec.color)
