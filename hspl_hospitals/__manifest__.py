@@ -9,7 +9,7 @@
 Staff and Patients
 Manage the staff for giving better services to patients with the help of our software""",
     'category': 'Management',
-    'depends': ['mail','product','base'],
+    'depends': ['mail','product','base','report_xlsx'],
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',

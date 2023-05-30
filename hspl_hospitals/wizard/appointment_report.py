@@ -2,15 +2,18 @@ from odoo import api, fields, models, _
 import xlwt
 import base64
 from io import BytesIO
-import json
-from odoo.tools import date_utils
 
-class AppointmentXmlReportWizard(models.TransientModel):
-    _name ='appointment.xml.report.wizard'
-    _description = 'Appointment Xml Report Wizard'
+class AppointmentXmlReportWizard(models.AbstractModel):
+    _name = 'report.hspl_hospitals.appointment_xlsx_report_template'
+    _inherit = 'report.report_xlsx.abstract'
+    def generate_xlsx_report(self, workbook, data, patient_id):
+        for obj in patient_id:
+            report_name = obj.name
+            # One sheet by partner
+            sheet = workbook.add_worksheet(report_name[:31])
+            bold = workbook.add_format({'bold': True})
+            sheet.write(0, 0, obj.name, bold)
 
-    report_name = fields.Char('File name')
-    file_name = fields.Binary('Report')
 
 class AppointmentReportWizard(models.TransientModel):
     _name ='appointment.report.wizard'
@@ -55,19 +58,10 @@ class AppointmentReportWizard(models.TransientModel):
         stream.seek(0)
         out = base64.encodebytes(stream.getvalue())
 
-        excel_id = self.env['appointment.xml.report.wizard'].create({
-            'report_name':filename,
-            'file_name':out
-        })
+        # excel_id = self.env['appointment.xml.report.wizard'].create({
+        #     'report_name':filename,
+        #     'file_name':out
+        # })
 
         print("Excel Report",self.patient_id.name)
-        return {
-            'type': 'ir.actions.report',
-            'data': {'model': 'appointment.report.wizard',
-                     'options': json.dumps(out,
-                                           default=date_utils.json_default),
-                     'output_format': 'xlsx',
-                     'report_name': "Vendor Report",
-                     },
-            'report_type': 'stock_xlsx',
-        }
+        return

@@ -13,7 +13,7 @@ class SaleOrderInherit(models.Model):
     @api.constrains('date_order')
     def _check_date_order(self):
         for rec in self:
-            if rec.date_order and rec.date_order < fields.datetime.today():
+            if rec.date_order and rec.date_order.date() < fields.date.today():
                 raise ValidationError(_("The entered date of quatation is not accepted"))
 
     @api.constrains('validity_date')

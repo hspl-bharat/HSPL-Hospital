@@ -89,13 +89,13 @@
         <field name="binding_type">report</field>
     </record>
 
-<!--    <record id="action_qweb_xlsx_report_appointment" model="ir.actions.report">-->
-<!--        <field name="name">Print Appointments XLSX Report</field>-->
-<!--        <field name="model">appointment.report.wizard</field>-->
-<!--        <field name="report_type">xlsx</field>-->
-<!--        <field name="report_name">hspl_hospitals.qweb_appointment_xlsx_report_template</field>-->
-<!--        <field name="report_file">hspl_hospitals.qweb_appointment_xlsx_report_template</field>-->
-<!--        <field name="binding_model_id" ref="model_appointment_report_wizard"/>-->
-<!--        <field name="binding_type">report</field>-->
-<!--    </record>-->
+    <record id="action_xlsx_report_appointment" model="ir.actions.report">
+        <field name="name">Print Appointments XLSX Report</field>
+        <field name="model">appointment.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">hspl_hospitals.appointment_xlsx_report_template</field>
+        <field name="report_file">hspl_hospitals.appointment_xlsx_report_template</field>
+        <field name="binding_model_id" ref="model_appointment_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

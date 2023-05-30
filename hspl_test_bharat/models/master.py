@@ -21,7 +21,8 @@ class MembershipLevel(models.Model):
         if self.ranking > 9:
             raise ValidationError(_("Cannot enter more than 10 record "))
 
-    @api.depends('name','ranking')
+    @api.depends('color_ids','ranking')
     def _compute_display_name(self):
         for rec in self:
-            rec.display_name = str(rec.ranking) +':'+ str(rec.color)
+            rec.display_name = str(rec.ranking) +':'+ str(rec.color_ids.name)
+

@@ -8,7 +8,7 @@
     'description': """
                         Entry test by HSPL for fresher""",
     'category': 'Management',
-    'depends': ['mail','product','base','sale','portal'],
+    'depends': ['mail','product','base','sale','portal','report_xlsx'],
     'data': [
         'security/ir.model.access.csv',
         'data/ranking_tag_data.xml',
