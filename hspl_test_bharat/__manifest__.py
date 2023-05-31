@@ -13,6 +13,7 @@
         'security/ir.model.access.csv',
         'data/ranking_tag_data.xml',
         'data/ranking.tag.csv',
+        'reports/sales_invoice_inherited.xml',
         'views/menu.xml',
         'views/candidates.xml',
         'views/tag_view.xml',
