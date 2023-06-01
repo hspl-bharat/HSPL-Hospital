@@ -1,7 +1,6 @@
 from odoo import api, fields, models, _
 from datetime import date
 from odoo.exceptions import ValidationError
-import smtplib
 
 
 class HosptialPatient(models.Model):
@@ -22,22 +21,19 @@ class HosptialPatient(models.Model):
     patient_appointment_id = fields.One2many('hspl.hospital.appointment', 'patient_name', string='Appointment_id')
     appointment_count = fields.Integer('Total Appointment', compute='_compute_appointment_count', store=False)
     # prescription = fields.Html('Prescription')
-    ir_parameter_hospital_email = fields.Char('string="Hospital Email"', compute="_compute_ir_parameter_hospital_email")
-
-    def _compute_ir_parameter_hospital_email(self):
-        for record in self:
-            print(self, '-------...............---------')
-            record.ir_parameter_hospital_email = self.env['ir.config_parameter'].sudo().get_parameter("hspl_hospitals.hospital_email")
-        return
 
     @api.model
     def send_birthday_mail(self):
+        hospital_email = self.env['ir.config_parameter'].sudo().get_param("hspl_hospitals.hospital_email")
         today = fields.Date.today()
         patients = self.search([('date_of_birth', 'like', today.strftime('%m-%d'))])
         template_id = self.env.ref('hspl_hospitals.birthday_mail_template').id
         template = self.env['mail.template'].browse(template_id)
+        data = {
+            'hospital_email': hospital_email
+        }
         for patient in patients:
-            template.send_mail(patient.id, force_send=True)
+            template.with_context(data).send_mail(patient.id, force_send=True)
 
     @api.depends('patient_appointment_id')
     def _compute_appointment_count(self):

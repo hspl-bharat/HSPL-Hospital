@@ -4,37 +4,38 @@
         <template id="invoice_report_template">
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
-                    <!--                    <t t-call="web.external_layout">-->
-                    <div class="page container-fluid">
-                        <div class="row">
-                            <div class="col-6">
-                                <h2>I N V O I C E</h2>
-                            </div>
-                            <div class="col-6 text-right">
-                                <h5>
-                                    <b>Invoice #</b>
-                                </h5>
-                                <h5>00000A</h5>
-                            </div>
-                            <div class="col-6 mt-3">
-                                <h3 class="ml-5">
-                                    <b>Heliconia Solution</b>
-                                </h3>
-                                <hr></hr>
-                                <div class="row justify-content-around">
-                                    <div class="col-8">
-                                        <h5 class="ml-5">
-                                            <b>BILLING TO:</b>
-                                        </h5>
-                                        <h5 class="ml-5">SWC HUB, 541-543, opposite Rajpath Complex, Bhayli, Vadodara,
-                                            Gujarat 391410
-                                        </h5>
+                    <t t-call="web.external_layout">
+                        <div class="page container-fluid">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h2>I N V O I C E</h2>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <h5>
+                                        <b>Invoice #</b>
+                                    </h5>
+                                    <h5>00000A</h5>
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <h3 class="ml-5">
+                                        <b>Heliconia Solution</b>
+                                    </h3>
+                                    <hr></hr>
+                                    <div class="row justify-content-around">
+                                        <div class="col-8">
+                                            <h5 class="ml-5">
+                                                <b>BILLING TO:</b>
+                                            </h5>
+                                            <h5 class="ml-5">SWC HUB, 541-543, opposite Rajpath Complex, Bhayli,
+                                                Vadodara,
+                                                Gujarat 391410
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--                    </t>-->
+                    </t>
                 </t>
             </t>
         </template>

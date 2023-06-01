@@ -41,4 +41,9 @@
               parent="report_root"
               action="action_report_appointment"
               sequence="10"/>
+    <menuitem id="ankit"
+              name="ankit"
+              parent="report_root"
+              action="hspl_hospitals.print_invoice_report"
+              sequence="10"/>
 </odoo>

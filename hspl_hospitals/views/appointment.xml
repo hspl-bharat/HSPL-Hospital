@@ -191,4 +191,5 @@
           action="action_hospital_appointments"
           parent="appointment_master"
           sequence="0"/>
+
 </odoo>
