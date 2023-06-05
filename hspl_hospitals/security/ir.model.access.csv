@@ -7,3 +7,4 @@ access.cancel.appointment.wizard,access_cancel_appointment_wizard,model_cancel_a
 access.appointment.report.wizard,access_appointment_report_wizard,model_appointment_report_wizard,base.group_user,1,1,1,1
 access.res.partner.inherit,access_res_partner_inherit,model_res_partner_inherit,base.group_user,1,1,1,1
 access.report.hspl_hospitals.appointment_xlsx_report_template,access_report_hspl_hospitals_appointment_xlsx_report_template,model_report_hspl_hospitals_appointment_xlsx_report_template,base.group_user,1,1,1,1
+access.hspl.hospital.lab,access_hspl_hospital_lab,model_hspl_hospital_lab,hspl_hospitals.group_hspl_hospital_lab_assistant,1,1,1,1
