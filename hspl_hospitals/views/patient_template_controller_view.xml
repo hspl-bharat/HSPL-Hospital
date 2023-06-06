@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <template id="patients" name="patients">
+    <template id="patients_controller_view" name="patients">
 <!--        <t t-call="website.layout">-->
         <div class="container">
                 <table>

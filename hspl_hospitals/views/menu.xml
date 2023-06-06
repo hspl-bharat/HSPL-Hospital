@@ -41,9 +41,10 @@
               parent="report_root"
               action="action_report_appointment"
               sequence="10"/>
-    <menuitem id="ankit"
-              name="ankit"
+
+    <menuitem id="print_invoice_report_menu"
+              name="Print Invoice Reports"
               parent="report_root"
-              action="hspl_hospitals.print_invoice_report"
+              action="hspl_hospitals.action_print_invoice_reports"
               sequence="10"/>
 </odoo>

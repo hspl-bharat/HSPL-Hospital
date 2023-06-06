@@ -27,7 +27,7 @@ Manage the staff for giving better services to patients with the help of our sof
         'views/appointment.xml',
         'views/tag_view.xml',
         'views/draft_view.xml',
-        'views/patient_template_view.xml',
+        'views/patient_template_controller_view.xml',
         'views/res_config_settings_views.xml',
         'views/res_model.xml',
         'views/lab.xml',

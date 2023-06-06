@@ -11,4 +11,4 @@ class WebView(http.Controller):
             'patients':patients
         }
         # return "hello"
-        return request.render('hspl_hospitals.patients', values)
+        return request.render('hspl_hospitals.patients_controller_view', values)

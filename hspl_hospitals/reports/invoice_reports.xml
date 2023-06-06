@@ -41,11 +41,13 @@
         </template>
     </data>
 
-    <record id="print_invoice_report" model="ir.actions.report">
+    <record id="action_print_invoice_reports" model="ir.actions.report">
         <field name="name">Print Invoice Report</field>
         <field name="model">hspl.hospital.appointment</field>
         <field name="report_type">qweb-pdf</field>
         <field name="report_name">hspl_hospitals.invoice_report_template</field>
         <field name="report_file">hspl_hospitals.invoice_report_template</field>
+        <field name="binding_model_id" ref="model_hspl_hospital_appointment"/>
+        <field name="binding_type">report</field>
     </record>
 </odoo>
